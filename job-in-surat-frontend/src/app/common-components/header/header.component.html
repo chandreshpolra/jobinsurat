@@ -1,0 +1,22 @@
+<nav class="navbar d-flex justify-content-between align-items-center">
+    <a class="navbar-brand m-0 p-0" routerLink="/">
+        <img src="../assets/image/logo.png">
+    </a>
+    <nav class="header-nav d-flex justify-content-center align-items-center">
+        
+        <div class="mobile-menu" (click)="openMobileMenu()">
+            <i class="bi bi-list"></i>
+        </div>
+        
+        <ul>
+            <li><a class="cursor-pointer" (click)="reloadCurrentRoute()">Jobs</a></li>
+            <li><a routerLink="/career-advice">Career Guide</a></li>
+            <li><a routerLink="/">Job Guaranteed Courses</a></li>
+        </ul>
+
+        <div class="header-login">
+            <a href="https://eihei.fueko.net/signup/" class="g-btn">Contact For Job Post</a>
+        </div>
+
+    </nav>
+</nav>

@@ -1,0 +1,141 @@
+<div class="job-post-inner">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 job-filter">
+        <div class="job-post-inner-wrap">
+          <h3>Filters</h3>
+          <div class="filter-close">
+            <i class="bi bi-x-circle" (click)="applyFilter()"></i>
+          </div>
+          <div class="job-post-inner-wrap-filter">
+            <div class="job-post-inner-wrap-filter-type">
+              <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                <div (click)="selectType($event, 'type')">Work From Home</div>
+                <div (click)="selectType($event, 'type')">Part Time</div>
+                <div (click)="selectType($event, 'type')">Full Time</div>
+              </div>
+            </div>
+          </div>
+          <div class="job-post-inner-wrap-filter">
+            <h4>Job Roles</h4>
+            <div class="job-post-inner-wrap-filter-type">
+              <div class="job-post-inner-wrap-filter-type-btn job-roles d-flex flex-wrap">
+                <div *ngFor="let jobCategory of jobCategories" (click)="selectType($event, 'roles')">{{jobCategory}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="job-post-inner-wrap-filter">
+            <h4>Monthly Salary</h4>
+            <div class="job-post-inner-wrap-filter-type">
+              <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                <div *ngFor="let salary of salaryRanges">
+                  <input type="radio" [id]="salary" [value]="salary" name="salary" [(ngModel)]="jobFilter.salary" (change)="getJobsByfiltered()">
+                  <label [for]="salary">
+                    More than ₹ {{salary}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="job-post-inner-wrap-filter">
+            <h4>Experience</h4>
+            <div class="job-post-inner-wrap-filter-type">
+              <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                <div *ngFor="let experience of JobExperience">
+                  <input type="radio" [id]="experience" [value]="experience" name="experience"
+                    [(ngModel)]="jobFilter.experience" (change)="getJobsByfiltered()">
+                  <label [for]="experience">
+                    <ng-container *ngIf="experience == 0">
+                      Fresher
+                    </ng-container>
+                    <ng-container *ngIf="experience == 0.5">
+                      Less than 6 Months 
+                    </ng-container>
+                    <ng-container *ngIf="experience == 1">
+                      Less than {{experience}} Year
+                    </ng-container>
+                    <ng-container *ngIf="experience > 1">
+                      {{experience == 5 ? experience + '+ Years' : 'Less than ' + experience + ' Years'}}
+                    </ng-container>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="job-post-inner-wrap-filter">
+            <h4>Gender</h4>
+            <div class="job-post-inner-wrap-filter-type">
+              <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                <div *ngFor="let gender of jobGenders">
+                  <input type="radio" [id]="gender" [value]="gender" name="gender" [(ngModel)]="jobFilter.gender"
+                    (change)="getJobsByfiltered()">
+                  <label [for]="gender">{{gender}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="job-post-inner-wrap-filter">
+            <h4>Qualification</h4>
+            <div class="job-post-inner-wrap-filter-type">
+              <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                <div *ngFor="let qeualification of jobQualifications">
+                  <input type="radio" [id]="qeualification" [value]="qeualification" name="qeualification"
+                    [(ngModel)]="jobFilter.qualification" (change)="getJobsByfiltered()">
+                  <label [for]="qeualification">{{qeualification}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-end">
+            <button class="g-btn g-btn-small-border" (click)="clearAllFilter()">Clear All</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="job-post-inner-wrap-list position-relative">
+          <h3>{{jobList.length}} Jobs in Surat</h3>
+          <div class="job-filter-btn">
+            <button class="g-btn g-btn-small-border" (click)="applyFilter()"><i class="bi bi-funnel"></i> Jobs
+              Filters</button>
+          </div>
+          <div class="job-post-inner-wrap cursor-pointer position-relative" *ngFor="let jobObj of jobList"
+            (click)="redirectJobDetails(jobObj)">
+            <div class="job-post-company-info margin-bottom-15 d-flex align-items-center">
+              <img alt="company-logo" src="{{jobObj?.companyId.companyLogo}}">
+              <div class="company-name">
+                <h4>{{jobObj?.title}}</h4>
+                <div class="company-salary g-font-xxs">
+                  <b><span>₹</span>{{jobObj?.salary - 5000}}</b> -
+                  <b><span>₹{{jobObj?.salary}}</span></b>/Month
+                </div>
+              </div>
+            </div>
+            <div class="job-post-company-des">
+              <div class="job-organization d-flex align-items-center">
+                <img alt="company-logo" src="https://www.jobhai.com/static/companyIcon.svg">
+                <span>
+                  {{jobObj?.companyId.companyName}}
+                </span>
+              </div>
+              <div class="job-locality d-flex align-items-center">
+                <img alt="company-logo" src="https://www.jobhai.com/static/locationIcon.svg">
+                <span>
+                  {{jobObj?.companyId.companyAddress}}
+                </span>
+              </div>
+              <div class="d-flex job-tags">
+                <div class="job-openings">{{jobObj?.vacancies}} Vacancies</div>
+                <div class="job-openings">{{jobObj?.type}}</div>
+              </div>
+              <div class="job-skills"><b>Skills :</b> {{jobObj?.skills}}</div>
+            </div>
+            <div class="job-post-company-more">
+              <img alt="arrow" src="../../assets/image/arrow.svg">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

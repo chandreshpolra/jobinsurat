@@ -1,0 +1,310 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card shadow margin-40-0">
+                <div class="card-header">
+                    <h3 class="m-0">Create New Job</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form #jobForm="ngForm" (ngSubmit)="createJobPost(jobForm)">
+
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Job Title</label>
+                            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="job.title"
+                                required #title="ngModel">
+                            <div *ngIf="title.invalid && title.touched" class="text-danger">Job Title is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Job Category</label>
+                            <select class="form-control" id="category" name="category" [(ngModel)]="job.category" required #category="ngModel">
+                                <option value="" disabled selected>Select Job Category</option>
+                                <option *ngFor="let jobCategory of jobCategories" [value]="jobCategory">{{ jobCategory }}</option>
+                            </select>
+                            <div *ngIf="category.invalid && category.touched" class="text-danger">Job Category is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="salary" class="form-label">Monthly Salary</label>
+                            <input type="number" class="form-control" id="salary" name="salary" [(ngModel)]="job.salary"
+                                required #salary="ngModel">
+                            <div *ngIf="salary.invalid && salary.touched" class="text-danger">Salary is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyName" class="form-label">Company Name</label>
+                            <select class="form-control" id="companyName" name="companyName" [(ngModel)]="job.companyId" required #companyName="ngModel" >
+                                <option value="" disabled selected>Company Name</option>
+                                <option *ngFor="let experienceLevel of companyInfoList" [value]="experienceLevel._id">
+                                    {{experienceLevel.companyName}}
+                                </option>
+                            </select>
+                            <div *ngIf="companyName.invalid && companyName.touched" class="text-danger">Company Name is required.</div>
+                        </div>
+
+                        <!-- <div class="mb-3">
+                            <label for="companyLogo" class="form-label">Company Logo</label>
+                            <input type="file" class="form-control" id="companyLogo" name="companyLogo"
+                                [(ngModel)]="job.companyLogo" required #companyLogo="ngModel" (change)="onFileSelected($event)">
+                            <div *ngIf="companyLogo.invalid && companyLogo.touched" class="text-danger">Company Logo is
+                                required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyAddress" class="form-label">Company Address</label>
+                            <input type="text" class="form-control" id="companyAddress" name="companyAddress"
+                                [(ngModel)]="job.companyAddress" required #companyAddress="ngModel">
+                            <div *ngIf="companyAddress.invalid && companyAddress.touched" class="text-danger">Company
+                                Address is required.</div>
+                        </div> -->
+
+                        <div class="mb-3">
+                            <label class="form-label">Job Experience</label>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <select class="form-control" id="experienceMin" name="experienceMin" [(ngModel)]="job.experience.min" required #experienceMin="ngModel" (ngModelChange)="dateChangeCheck()">
+                                        <option value="" disabled selected>Min Experience</option>
+                                        <option *ngFor="let experienceLevel of jobExperience" [value]="experienceLevel">
+                                            <ng-container *ngIf="experienceLevel == 0">
+                                                {{experienceLevel}} Month
+                                            </ng-container>
+                                            <ng-container *ngIf="experienceLevel == 0.5">
+                                                6 Months
+                                            </ng-container>
+                                            <ng-container *ngIf="experienceLevel == 1">
+                                                {{experienceLevel}} Year
+                                            </ng-container>
+                                            <ng-container *ngIf="experienceLevel > 1">
+                                                {{experienceLevel == 5 ? experienceLevel + '+ Years' : experienceLevel + ' Years'}} 
+                                            </ng-container>
+                                        </option>
+                                    </select>
+                                    <div *ngIf="experienceMin.invalid && experienceMin.touched" class="text-danger">Min Experience is required.</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select class="form-control" id="experienceMax" name="experienceMax" [(ngModel)]="job.experience.max" required #experienceMax="ngModel" (ngModelChange)="dateChangeCheck()" >
+                                        <option value="" disabled selected>Max Experience</option>
+                                        <option *ngFor="let experienceLevel of jobExperience" [value]="experienceLevel">
+                                            <ng-container *ngIf="experienceLevel == 0">
+                                                {{experienceLevel}} Month
+                                            </ng-container>
+                                            <ng-container *ngIf="experienceLevel == 0.5">
+                                                6 Months
+                                            </ng-container>
+                                            <ng-container *ngIf="experienceLevel == 1">
+                                                {{experienceLevel}} Year
+                                            </ng-container>
+                                            <ng-container *ngIf="experienceLevel > 1">
+                                                {{experienceLevel == 5 ? experienceLevel + '+ Years' : experienceLevel + ' Years'}} 
+                                            </ng-container>
+                                        </option>
+                                    </select>
+                                    <div *ngIf="experienceMax.invalid && experienceMax.touched" class="text-danger">Max Experience is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="vacancies" class="form-label">Job Vacancies</label>
+                            <input type="text" class="form-control" id="vacancies" name="vacancies"
+                                [(ngModel)]="job.vacancies" required #vacancies="ngModel">
+                            <div *ngIf="vacancies.invalid && vacancies.touched" class="text-danger">Vacancies are
+                                required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Job Type</label>
+                            <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                                <div>
+                                    <input type="radio" value="Full Time" name="type" id="fullTime" [(ngModel)]="job.type" required>
+                                    <label class="form-check-label" for="fullTime">Full Time</label>
+                                </div>
+                                <div>
+                                    <input type="radio" value="Part Time" name="type" id="partTime" [(ngModel)]="job.type">
+                                    <label class="form-check-label" for="partTime">Part Time</label>
+                                </div>
+                                <div>
+                                    <input type="radio" value="Full Time/Part Time" name="type" id="FTimePTime" [(ngModel)]="job.type">
+                                    <label class="form-check-label" for="FTimePTime">Full Time/Part Time</label>
+                                </div>
+                                <div>
+                                    <input type="radio" value="Work From Home" name="type" id="wfh" [(ngModel)]="job.type">
+                                    <label class="form-check-label" for="wfh">Work From Home</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="skills" class="form-label">Skills</label>
+                            <input type="text" class="form-control" id="skills" name="skills" [(ngModel)]="job.skills"
+                                required #skills="ngModel">
+                            <div *ngIf="skills.invalid && skills.touched" class="text-danger">Skills are required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="qualification" class="form-label">Qualification</label>
+                            <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                                <div *ngFor="let qua of jobQualifications">
+                                    <input type="radio" value="{{qua}}" [id]="qua" name="qualification" [(ngModel)]="job.qualification" required> 
+                                    <label class="form-check-label" [for]="qua">{{qua}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="industry" class="form-label">Industry</label>
+                            <input type="text" class="form-control" id="industry" name="industry"
+                                [(ngModel)]="job.industry" required #industry="ngModel">
+                            <div *ngIf="industry.invalid && industry.touched" class="text-danger">Industry is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="genders" class="form-label">Genders</label>
+                            <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                                <div *ngFor="let gender of jobGenders">
+                                    <input type="radio" value="{{gender}}" [id]="gender" name="genders" [(ngModel)]="job.genders" required> 
+                                    <label class="form-check-label" [for]="gender">{{gender}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="jobTime" class="form-label">Job Time</label>
+                            <input type="text" class="form-control" id="jobTime" name="jobTime"
+                                [(ngModel)]="job.jobTime" required #jobTime="ngModel">
+                            <div *ngIf="jobTime.invalid && jobTime.touched" class="text-danger">Job Time is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="jobBenefits" class="form-label">Job Benefits</label>
+                            <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="checkbox" id="pf" value="PF" name="jobBenefits"
+                                           [(ngModel)]="job.jobBenefits.pf">
+                                    <label class="form-check-label" for="pf">PF</label>
+                                </div>
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="checkbox" id="medical" value="Medical Benefits" name="jobBenefits"
+                                           [(ngModel)]="job.jobBenefits.medical">
+                                    <label class="form-check-label" for="medical">Medical Benefits</label>
+                                </div>
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="checkbox" id="meal" value="Meal" name="jobBenefits"
+                                           [(ngModel)]="job.jobBenefits.meal">
+                                    <label class="form-check-label" for="meal">Meal</label>
+                                </div>
+                            </div>
+                            <div *ngIf="jobForm.controls['jobBenefits']?.invalid && jobForm.controls['jobBenefits']?.touched"
+                                 class="text-danger">
+                                Please select at least one benefit.
+                            </div>
+                        </div>                      
+
+                        <div class="mb-3">
+                            <label for="asset" class="form-label">Need Asset for Job</label>
+                            <div class="job-post-inner-wrap-filter-type-btn d-flex flex-wrap">
+                                <div>
+                                    <input type="checkbox" name="asset" value="Bike" id="bike" [(ngModel)]="job.asset.bike"> 
+                                    <label class="form-check-label" for="bike">Bike</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="asset" value="Smart Phone" id="smartphone" [(ngModel)]="job.asset.smartphone"> 
+                                    <label class="form-check-label" for="smartphone">Smart Phone</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="asset" value="PAN Card" id="pancard" [(ngModel)]="job.asset.pancard"> 
+                                    <label class="form-check-label" for="pancard">PAN Card</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="asset" value="Aadhar Card" id="aadharCard" [(ngModel)]="job.asset.aadhar_card"> 
+                                    <label class="form-check-label" for="aadharCard">Aadhar Card</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="asset" value="2-Wheeler Driving Licence" id="twoWheelerLicence" [(ngModel)]="job.asset.two_wheeler_licence"> 
+                                    <label class="form-check-label" for="twoWheelerLicence">2-Wheeler Driving Licence</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="asset" value="Bank Account" id="bankAccount" [(ngModel)]="job.asset.bank_account">
+                                    <label class="form-check-label" for="bankAccount">Bank Account</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="jobDescription" class="form-label">Job Description</label>
+
+                            <div *ngFor="let desc of job.jobDescription; let i = index" class="input-group mb-2">
+                                <input type="text" class="form-control" id="jobDescription-{{i}}"
+                                    name="jobDescription-{{i}}" [(ngModel)]="job.jobDescription[i]" required>
+                                <button type="button" class="btn btn-danger ms-2" (click)="removeJobDescription(i)"
+                                    [disabled]="job.jobDescription.length === 1">Remove</button>
+                            </div>
+
+                            <button type="button" class="btn btn-success" (click)="addJobDescription()">Add Job
+                                Description</button>
+
+                            <div *ngIf="jobForm.controls['jobDescription']?.invalid && jobForm.controls['jobDescription']?.touched"
+                                class="text-danger">
+                                Job Description is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="otherDetails" class="form-label">Other Details</label>
+                            <input type="text" class="form-control" id="otherDetails" name="otherDetails"
+                                [(ngModel)]="job.otherDetails" required #otherDetails="ngModel">
+                            <div *ngIf="otherDetails.invalid && otherDetails.touched" class="text-danger">Other Details
+                                is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="faqsAboutJob" class="form-label">FAQs About Job</label>
+                            <div *ngFor="let faq of job.faqsAboutJob; let i = index" class="mb-2">
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" id="question-{{i}}" name="question-{{i}}"
+                                        placeholder="Question" [(ngModel)]="faq.question" required>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="answer-{{i}}" name="answer-{{i}}"
+                                        placeholder="Answer" [(ngModel)]="faq.answer" required>
+                                    <button type="button" class="btn btn-danger ms-2" (click)="removeFaq(i)"
+                                        [disabled]="job.faqsAboutJob.length === 1">
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-success mt-2" (click)="addFaq()">Add FAQ</button>
+
+                            <div *ngIf="jobForm.controls['faqsAboutJob']?.invalid && jobForm.controls['faqsAboutJob']?.touched"
+                                class="text-danger">
+                                Both question and answer are required.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="contactPerson" class="form-label">Contact Person</label>
+                            <input type="text" class="form-control" id="contactPerson" name="contactPerson"
+                                [(ngModel)]="job.contactPerson" required #contactPerson="ngModel">
+                            <div *ngIf="contactPerson.invalid && contactPerson.touched" class="text-danger">Contact
+                                Person is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="interviewAddress" class="form-label">Interview Address</label>
+                            <input type="text" class="form-control" id="interviewAddress" name="interviewAddress"
+                                [(ngModel)]="job.interviewAddress" required #interviewAddress="ngModel">
+                            <div *ngIf="interviewAddress.invalid && interviewAddress.touched" class="text-danger">
+                                Interview Address is required.</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100" [disabled]="jobForm.invalid">Create Job</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
