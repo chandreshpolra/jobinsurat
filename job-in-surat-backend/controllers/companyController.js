@@ -1,4 +1,4 @@
-const Company = require('../models/Company');
+const Company = require('../models/company');
 const cloudinary = require('cloudinary').v2;
 const ApiResponse = require('../utils/ApiResponse');
 
