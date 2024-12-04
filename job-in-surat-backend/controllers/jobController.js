@@ -1,6 +1,6 @@
-const Job = require('../models/Job');
+const Job = require('../models/job');
 const Filter = require('../models/filters');
-const cloudinary = require('cloudinary').v2;
+// const cloudinary = require('cloudinary').v2;
 const ApiResponse = require('../utils/ApiResponse');
 
 
@@ -129,36 +129,36 @@ exports.getTopJobCompanies = async (req, res) => {
 
 
 // Data to be added
-const filterData = {
-  jobCategory: [
-    "Driver", "Delivery", "Warehouse Logistics", "Manufacturing", "Peon",
-    "Housekeeping", "Security Guard", "Painter", "LabourHelper", "Technician",
-    "Refrigerator AC Technician", "Beautician", "Cook Chef", "Waiter Steward",
-    "Ward Boy", "Nurse Compounder", "Lab Technician Pharmacist", "Trainer",
-    "Event Management", "Back Office Data Entry", "Telesales Telemarketing",
-    "Customer Support TeleCaller", "Sales Business Development", "Digital Marketing",
-    "Marketing", "Content Writer", "Field Sales", "Retail Counter Sales",
-    "Cashier", "Recruiter HR Admin", "Receptionist", "Teacher Tutor",
-    "Video Editor", "Graphic Web Designer", "IT Hardware Network Engineer",
-    "Electrician", "Carpenter", "Plumber", "Mechanic",
-    "Architect Interior Designer", "Fashion Designer", "Legal", "Accountant"
-  ],
-  salaryRanges: [5000, 10000, 20000, 30000, 40000, 50000],
-  experienceLevels: ["Freshers", "1", "2", "3", "4", "5"],
-  genders: ["Jobs for Women", "Jobs for Men", "All genders"],
-  qualifications: ["All Education levels", "10th Pass", "12th Pass", "Diploma", "Graduate", "Post Graduate"]
-};
+// const filterData = {
+//   jobCategory: [
+//     "Driver", "Delivery", "Warehouse Logistics", "Manufacturing", "Peon",
+//     "Housekeeping", "Security Guard", "Painter", "LabourHelper", "Technician",
+//     "Refrigerator AC Technician", "Beautician", "Cook Chef", "Waiter Steward",
+//     "Ward Boy", "Nurse Compounder", "Lab Technician Pharmacist", "Trainer",
+//     "Event Management", "Back Office Data Entry", "Telesales Telemarketing",
+//     "Customer Support TeleCaller", "Sales Business Development", "Digital Marketing",
+//     "Marketing", "Content Writer", "Field Sales", "Retail Counter Sales",
+//     "Cashier", "Recruiter HR Admin", "Receptionist", "Teacher Tutor",
+//     "Video Editor", "Graphic Web Designer", "IT Hardware Network Engineer",
+//     "Electrician", "Carpenter", "Plumber", "Mechanic",
+//     "Architect Interior Designer", "Fashion Designer", "Legal", "Accountant"
+//   ],
+//   salaryRanges: [5000, 10000, 20000, 30000, 40000, 50000],
+//   experienceLevels: ["Freshers", "1", "2", "3", "4", "5"],
+//   genders: ["Jobs for Women", "Jobs for Men", "All genders"],
+//   qualifications: ["All Education levels", "10th Pass", "12th Pass", "Diploma", "Graduate", "Post Graduate"]
+// };
 
 // Save the data to the collection
-const addFilterData = async () => {
-  try {
-    const newFilter = new Filter(filterData);
-    await newFilter.save();
-    console.log('Filter data added successfully');
-  } catch (error) {
-    console.error('Error adding filter data:', error);
-  }
-};
+// const addFilterData = async () => {
+//   try {
+//     const newFilter = new Filter(filterData);
+//     await newFilter.save();
+//     console.log('Filter data added successfully');
+//   } catch (error) {
+//     console.error('Error adding filter data:', error);
+//   }
+// };
 
 // Call the function to add data
 //   addFilterData();

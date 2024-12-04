@@ -16,7 +16,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(cors({
-    origin: '*', 
+    origin: '*',
     credentials: true,
 }));
 
@@ -24,14 +24,19 @@ app.use(fileUpload({
     useTempFiles: true
 }));
 
-cloudinary.config({ 
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-    api_key: process.env.CLOUDINARY_API_KEY , 
-    api_secret: process.env.CLOUDINARY_API_SECRET 
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 
 connectDB();
+
+
+app.get('/hello', (req, res) => {
+    res.send('Hello World!');
+});
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
