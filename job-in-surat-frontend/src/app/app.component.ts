@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, HostListener, Renderer2 } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 
 import { HeaderComponent } from './common-components/header/header.component';
@@ -35,6 +35,14 @@ export class AppComponent {
   removeBodyClasses(body: HTMLElement) {
     this.renderer.removeClass(body, 'open-menu');
     this.renderer.removeClass(body, 'filter-data');
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: any) {
+    if (!event.target.offsetParent?.classList.contains('job-filter-btn')) {
+      let body = document.querySelector('body');
+      body.classList.remove('filter-data');
+    }
   }
 
 }

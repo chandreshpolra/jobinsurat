@@ -5,7 +5,7 @@ const ApiResponse = require('../utils/ApiResponse');
 
 exports.createCompany = async (req, res) => {
   try {
-    const file = req.files.companyLogo;
+    const file = req.files.file;
     const uploadResult = await cloudinary.uploader.upload(file.tempFilePath).catch((error) => {
         console.log(error);
     });

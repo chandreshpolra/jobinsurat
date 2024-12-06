@@ -9,6 +9,6 @@ router.get('/company-info', authenticate, getCompanyInfo);
 
 router.post('/create-company', authenticate, createCompany);
 
-router.post('/apply-for-job', authenticate, sendMailToClient);
+router.post('/apply-for-job', sendMailToClient);
 
 module.exports = router;

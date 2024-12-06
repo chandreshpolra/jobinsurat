@@ -15,8 +15,50 @@
         </ul>
 
         <div class="header-login">
-            <a href="https://eihei.fueko.net/signup/" class="g-btn">Contact For Job Post</a>
+            <button data-bs-toggle="modal" data-bs-target="#contactForJob" class="g-btn cursor-pointer">Contact For Job Post</button>
         </div>
 
     </nav>
 </nav>
+
+
+<!-- Modal -->
+<div class="modal fade" id="contactForJob" tabindex="-1" aria-labelledby="applyNowLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form #jobForm="ngForm" (ngSubmit)="contactForJobPost()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applyNowLabel">Contact For Job Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName" [(ngModel)]="jobPostObj.fullName" #fullName="ngModel">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mobileNo" class="form-label">Mobile No.</label>
+                        <input type="text" class="form-control" id="mobileNo" name="mobileNo" [(ngModel)]="jobPostObj.mobileNo" #mobileNo="ngModel">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="text" class="form-control" id="email" name="email" [(ngModel)]="jobPostObj.email" #email="ngModel">
+                    </div>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <div class="alert-mgs">After apply company we will contact you!</div>
+                    <button type="submit" class="g-btn">Contact Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="loader-wrap"  *ngIf="isLoader">
+    <div class="loader"></div>
+</div>

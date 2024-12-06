@@ -56,6 +56,7 @@ export class CreateJobComponent {
   public jobQualifications = [];
   public companyInfoList = [];
   public selectedFile = '';
+  public isLoader = false;
 
   constructor(private clientService: ClientService, private toastr: ToastrService) { }
 
@@ -95,6 +96,7 @@ export class CreateJobComponent {
 
   createJobPost(form: any) {
     if (form.valid) {
+      this.isLoader = true;
       const payload = JSON.parse(JSON.stringify(this.job));
       payload.experience.min = parseFloat(payload.experience.min);
       payload.experience.max = parseFloat(payload.experience.max);
@@ -105,12 +107,14 @@ export class CreateJobComponent {
       this.clientService.createJob(payload, this.selectedFile).subscribe(
         {
           next: (res) => {
+            this.isLoader = false;
             form.reset();
             this.resetForm();
             this.toastr.success('Job Created Successfully');
           },
           error: (error) => {
             this.toastr.error('Something Went Wrong');
+            this.isLoader = false;
           }
         }
       )

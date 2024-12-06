@@ -15,6 +15,7 @@ import { SmcComponent } from './router-components/smc/smc.component';
 import { PincodeOfSuratComponent } from './router-components/pincode-of-surat/pincode-of-surat.component';
 import { SuratMapComponent } from './router-components/surat-map/surat-map.component';
 import { authGuard } from './auth.guard';
+import { CreateCompanyComponent } from './router-components/create-company/create-company.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
     { path: 'job-search-in-surat', component: JobSearchComponent },
     { path: 'job-search-details-surat', component: JobDetailsComponent },
     { path: 'create-job', component: CreateJobComponent, canActivate: [authGuard]  },
+    { path: 'create-company', component: CreateCompanyComponent, canActivate: [authGuard]  },
     { path: 'career-advice', component: CareerGuideComponent },
     
     // Career Guide

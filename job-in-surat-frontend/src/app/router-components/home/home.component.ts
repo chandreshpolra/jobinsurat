@@ -36,6 +36,7 @@ export class HomeComponent {
   }
 
   getJobsByfiltered() {
+    this.allCategories = [];
     this.clientService.getJobsByCategoriesPortal().subscribe({
       next: (res) => {
         this.allCategories = res['data'];

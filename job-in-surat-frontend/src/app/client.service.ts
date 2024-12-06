@@ -2,20 +2,41 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root' // This provides the service globally (root injector)
+  providedIn: 'root'
 })
 export class ClientService {
 
-  private url = 'https://145.223.19.29:5000';
+  private url = 'https://api.jobsinsurat.in';
 
-  constructor(private httpClient: HttpClient) {}
- 
+
+  constructor(private httpClient: HttpClient) { }
+
   createJob(createJob, fileUpload) {
     return this.httpClient.post(`${this.url}/api/jobs/create-job`, createJob, { responseType: 'text' });
   }
 
+
+  createCompany(createJob, fileUpload) {
+    const formData = new FormData();
+
+    for (const key in createJob) {
+      if (createJob.hasOwnProperty(key)) {
+        formData.append(key, createJob[key]);
+      }
+    }
+
+    if (fileUpload) {
+      formData.append('file', fileUpload);
+    }
+
+    return this.httpClient.post(`${this.url}/api/company/create-company`, formData, {
+      responseType: 'text',
+    });
+  }
+
+
   loginPortal(userPass) {
-    return this.httpClient.post(`${this.url}/api/auth/login`, userPass, { responseType: 'text', withCredentials: true});
+    return this.httpClient.post(`${this.url}/api/auth/login`, userPass, { responseType: 'text', withCredentials: true });
   }
 
   ragistarPortal(userPass) {

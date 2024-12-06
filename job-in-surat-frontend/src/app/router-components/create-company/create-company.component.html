@@ -1,0 +1,119 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card shadow margin-40-0">
+                <div class="card-header">
+                    <h3 class="m-0">Create Company</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form #jobForm="ngForm" (ngSubmit)="createCompanyForPost(jobForm)">
+
+                        <div class="mb-3">
+                            <label for="companyName" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="companyName" name="companyName"
+                                [(ngModel)]="companyObj.companyName" required #companyName="ngModel">
+                            <div *ngIf="companyName.invalid && companyName.touched" class="text-danger">Company name is
+                                required.</div>
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label for="companyAbout" class="form-label">Company About</label>
+                            <textarea type="text" rows="4" class="form-control" id="companyAbout" name="companyAbout"
+                                [(ngModel)]="companyObj.companyAbout" required #companyAbout="ngModel"> </textarea>
+                            <div *ngIf="companyAbout.invalid && companyAbout.touched" class="text-danger">Company about
+                                is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyFounded" class="form-label">Company Founded</label>
+                            <input type="text" class="form-control" id="companyFounded" name="companyFounded" [(ngModel)]="companyObj.companyFounded" required #companyFounded="ngModel">
+                            <div *ngIf="companyFounded.invalid && companyFounded.touched" class="text-danger">Company founded is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyEmployeeCount" class="form-label">Employee Count</label>
+                            <input type="text" class="form-control" id="companyEmployeeCount"
+                                name="companyEmployeeCount" [(ngModel)]="companyObj.companyEmployeeCount" required
+                                #companyEmployeeCount="ngModel">
+                            <div *ngIf="companyEmployeeCount.invalid && companyEmployeeCount.touched"
+                                class="text-danger">Employee count is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyHeadquarters" class="form-label">Company Headquarters</label>
+                            <input type="text" class="form-control" id="companyHeadquarters" name="companyHeadquarters"
+                                [(ngModel)]="companyObj.companyHeadquarters" required #companyHeadquarters="ngModel">
+                            <div *ngIf="companyHeadquarters.invalid && companyHeadquarters.touched" class="text-danger">
+                                Company headquarters required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyType" class="form-label">Company Type</label>
+                            <input type="text" class="form-control" id="companyType" name="companyType"
+                                [(ngModel)]="companyObj.companyType" required #companyType="ngModel">
+                            <div *ngIf="companyType.invalid && companyType.touched" class="text-danger">Company type is
+                                required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyEmail" class="form-label">Company Email</label>
+                            <input type="text" class="form-control" id="companyEmail" name="companyEmail"
+                                [(ngModel)]="companyObj.companyEmail" required #companyEmail="ngModel">
+                            <div *ngIf="companyEmail.invalid && companyEmail.touched" class="text-danger">Company email
+                                name is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyPhone" class="form-label">Company Phone</label>
+                            <input type="text" class="form-control" id="companyPhone" name="companyPhone"
+                                [(ngModel)]="companyObj.companyPhone" required #companyPhone="ngModel">
+                            <div *ngIf="companyPhone.invalid && companyPhone.touched" class="text-danger">Company phone
+                                is required.</div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="companyAddress" class="form-label">Company Address</label>
+                            <input type="text" class="form-control" id="companyAddress" name="companyAddress"
+                                [(ngModel)]="companyObj.companyAddress" required #companyAddress="ngModel">
+                            <div *ngIf="companyAddress.invalid && companyAddress.touched" class="text-danger">Company
+                                adress is required.</div>
+                        </div>
+
+
+
+
+                        <div class="mb-3">
+                            <label for="companyLogo" class="form-label">Company Logo</label>
+                            <input type="file" class="form-control" id="companyLogo" name="companyLogo"
+                                [(ngModel)]="companyObj.companyLogo" required #companyLogo="ngModel"
+                                (change)="onFileSelected($event)">
+                            <div *ngIf="companyLogo.invalid && companyLogo.touched" class="text-danger">Company logo is
+                                required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="companyWebsite" class="form-label">Company Website</label>
+                            <input type="text" class="form-control" id="companyWebsite" name="companyWebsite"
+                                [(ngModel)]="companyObj.companyWebsite" required #companyWebsite="ngModel">
+                            <div *ngIf="companyWebsite.invalid && companyWebsite.touched" class="text-danger">Company
+                                website is required.</div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary w-100" [disabled]="jobForm.invalid">Create
+                            Company</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="loader-wrap"  *ngIf="isLoader">
+    <div class="loader"></div>
+</div>
