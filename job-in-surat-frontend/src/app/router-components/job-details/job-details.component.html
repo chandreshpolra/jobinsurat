@@ -7,7 +7,7 @@
                         <div class="job-post-company-info margin-bottom-15 d-flex align-items-center">
                             <img alt="company-logo" src="{{jobDetails.companyId.companyLogo}}">
                             <div class="company-name">
-                                <h4>{{jobDetails.title}}</h4>
+                                <h3 class="m-0">{{jobDetails.title}}</h3>
                                 <div class="company-salary g-font-xxs">
                                     <b><span>₹</span>{{jobDetails.salary - 5000}}</b> -
                                     <b><span>₹</span>{{jobDetails.salary}}</b>/Month
@@ -16,15 +16,15 @@
                         </div>
                         <div class="job-post-company-des">
                             <div class="job-organization d-flex align-items-center">
-                                <img alt="company-logo" src="https://www.jobhai.com/static/companyIcon.svg">
+                                <img alt="company logo" src="../assets/image/company-icon.svg">
                                 {{jobDetails.companyId.companyName}}
                             </div>
                             <div class="job-locality d-flex align-items-center">
-                                <img alt="company-logo" src="https://www.jobhai.com/static/locationIcon.svg">
+                                <img alt="location icon" src="../assets/image/location-icon.svg">
                                 {{jobDetails.companyId.companyAddress}}
                             </div>
                             <div class="job-experience d-flex align-items-center">
-                                <img alt="company-logo" src="https://www.jobhai.com/static/jd/job-experience-new.svg">
+                                <img alt="experience icon" src="../assets/image/experience-icon.svg">
                                 <ng-container *ngIf="jobDetails.experience.max == 0">
                                     Fresher in Experience {{jobDetails.category}}
                                 </ng-container>
@@ -45,43 +45,42 @@
                             </div>
                             <div class="job-skills"><b>Skills :</b> {{jobDetails.skills}} </div>
                             <div class="job-cta text-end">
-                                <a class="g-btn g-btn-small margin-right-10 call-btn" href="tel:+{{jobDetails.companyId.companyPhone}}">Direct Call</a>
+                                <a class="g-btn g-btn-small margin-right-10 call-btn" href="https://wa.me/{{jobDetails.companyId.companyPhone}}?text=Hello!%20I'm%20interested%20in%20job%20opportunities%20for%20the%20{{jobDetails.title}}%20position%20posted%20on%20your%20Surat%20job%20portal." target="_blank">whatsApp</a>
                                 <a class="g-btn cursor-pointer" data-bs-toggle="modal" data-bs-target="#applyNow">Apply Now</a>
                             </div>
 
                             <div class="job-highlights border-top margin-bottom-30">
                                 <h4 class="margin-top-25 margin-bottom-15">Job Highlights</h4>
                                 <div class="d-flex align-items-center">
-                                    <img alt="company-logo" src="https://www.jobhai.com/static/industry-icon.svg">
+                                    <img alt="industry icon" src="../assets/image/industry-icon.svg">
                                     {{jobDetails.industry}}
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <img alt="company-logo" src="https://www.jobhai.com/static/jd/qualification.svg">
+                                    <img alt="educate icon" src="../assets/image/educate-icon.svg">
                                     {{jobDetails.qualification}}
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <img alt="company-logo" src="https://www.jobhai.com/static/jd/gender.svg">
+                                    <img alt="gender icon" src="../assets/image/gender-icon.svg">
                                     {{jobDetails.genders}}
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <img alt="company-logo" src="https://www.jobhai.com/static/jd/jobShift.svg">
+                                    <img alt="shift icon" src="../assets/image/shift-icon.svg">
                                     {{jobDetails.jobTime}}
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <img alt="company-logo" src="https://www.jobhai.com/static/jd/star.svg">
+                                    <img alt="benefits icon" src="../assets/image/benefits-icon.svg">
                                     <b class="content-represent-des-tag m-0">Job Benefits:</b>&nbsp;
                                     <ng-container *ngFor="let benefits of jobDetails.jobBenefits | keyvalue">
                                         {{benefits.key | formatText}},
                                     </ng-container>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <img alt="company-logo" src="https://www.jobhai.com/static/jd/asset.svg">
+                                    <img alt="asset icon" src="../assets/image/asset-icon.svg">
                                     <ng-container *ngFor="let item of jobDetails.asset | keyvalue">
                                         {{item.key | formatText}},
                                     </ng-container>
                                 </div>
                             </div>
-
                             <div class="job-highlights border-top margin-bottom-30">
                                 <h4 class="margin-top-25 margin-bottom-15">Job Description</h4>
                                 <ul>
@@ -102,13 +101,13 @@
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item"
                                         *ngFor="let faqs of jobDetails.faqsAboutJob; index as i">
-                                        <h2 class="accordion-header" [id]="'headingOne' + i">
+                                        <div class="accordion-header" [id]="'headingOne' + i">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                                 [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
                                                 aria-controls="collapseOne">
                                                 {{faqs.question}}
                                             </button>
-                                        </h2>
+                                        </div>
                                         <div [id]="'collapseOne' + i" class="accordion-collapse collapse"
                                             [attr.aria-labelledby]="'headingOne' + i"
                                             data-bs-parent="#accordionExample">
@@ -177,4 +176,9 @@
             </form>
         </div>
     </div>
+</div>
+
+
+<div class="loader-wrap"  *ngIf="isLoader">
+    <div class="loader"></div>
 </div>

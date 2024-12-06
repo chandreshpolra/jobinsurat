@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ClientService } from '../../client.service';
 import { sharedFormsConfig } from '../../shared-components/shared-forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormatTextPipe } from '../../pipes/format-text.pipe';
 import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-job-details',
@@ -21,6 +22,8 @@ export class JobDetailsComponent {
     mobileNo: '',
     email: '',
   };
+
+  public isLoader = false;
 
   constructor(private clientService: ClientService, private route: ActivatedRoute, private toastr: ToastrService) { }
 
@@ -44,14 +47,16 @@ export class JobDetailsComponent {
           this.jobDetails.jobBenefits = JSON.parse(this.jobDetails.jobBenefits);
         },
         error: (error) => {
-          console.error(error);
+          this.toastr.error('Something Went Wrong');
         }
       }
     )
   }
 
   applyForJob() {
+    this.isLoader = true;
     if (this.jobApplyObj.mobileNo == '' && this.jobApplyObj.email == '') {
+      this.isLoader = false;
       this.toastr.info('Mobile No Or Email Required');
     } else {
       this.jobApplyObj['jobTitle'] = this.jobDetails.title;
@@ -59,9 +64,14 @@ export class JobDetailsComponent {
       this.clientService.sendJobInfoPortal(this.jobApplyObj).subscribe(
         {
           next: (res) => {
+            this.isLoader = false;
             this.toastr.success('Email sent successfully');
+            setTimeout(() => {
+              this.reloadPage();
+            }, 700);
           },
           error: (error) => {
+            this.isLoader = false;
             this.toastr.error('Something Went Wrong');
           }
         }
@@ -69,5 +79,9 @@ export class JobDetailsComponent {
     }
   }
 
+
+  reloadPage() {
+    window.location.reload();
+  }
 
 }

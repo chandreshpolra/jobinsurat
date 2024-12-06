@@ -104,7 +104,7 @@
             <div class="job-post-company-info margin-bottom-15 d-flex align-items-center">
               <img alt="company-logo" src="{{jobObj?.companyId.companyLogo}}">
               <div class="company-name">
-                <h4>{{jobObj?.title}}</h4>
+                <h3 class="m-0">{{jobObj?.title}}</h3>
                 <div class="company-salary g-font-xxs">
                   <b><span>₹</span>{{jobObj?.salary - 5000}}</b> -
                   <b><span>₹{{jobObj?.salary}}</span></b>/Month
@@ -113,13 +113,13 @@
             </div>
             <div class="job-post-company-des">
               <div class="job-organization d-flex align-items-center">
-                <img alt="company-logo" src="https://www.jobhai.com/static/companyIcon.svg">
+                <img alt="company logo" src="../assets/image/company-icon.svg">
                 <span>
                   {{jobObj?.companyId.companyName}}
                 </span>
               </div>
               <div class="job-locality d-flex align-items-center">
-                <img alt="company-logo" src="https://www.jobhai.com/static/locationIcon.svg">
+                <img alt="location icon" src="../assets/image/location-icon.svg">
                 <span>
                   {{jobObj?.companyId.companyAddress}}
                 </span>
