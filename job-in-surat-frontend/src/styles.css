@@ -486,6 +486,7 @@ a {
     padding: 8px 20px;
     text-decoration: none;
     font-weight: 500;
+    color: #120b14;
 }
 
 .g-btn-small {
@@ -674,6 +675,7 @@ a {
     margin: 5px 0 5px 10px;
     padding: 0;
     display: inline-block;
+    vertical-align: top;
 }
 
 .job-post-social-list ul li a {
@@ -689,6 +691,7 @@ a {
     text-align: center;
     position: relative;
     transition: all .3s ease;
+    line-height: 30px;
 }
 
 .job-post-social-list ul li a:hover {
@@ -889,6 +892,7 @@ a {
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
+    vertical-align: top;
 }
 
 .job-post-inner-resent-wrap-des {
@@ -1085,7 +1089,8 @@ a {
     border-radius: 6px;
 }
 
-.job-post-company-des>div:last-child, .accordion-body p {
+.job-post-company-des>div:last-child,
+.accordion-body p {
     margin-bottom: 0;
 }
 
@@ -1564,7 +1569,16 @@ accordion-button::after {
     }
 
     .job-popular-section-wrap-des i {
-        font-size: 12px;
+        font-size: 10px;
+    }
+
+    .job-popular-section-wrap-des h3 {
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+    }
+
+    .header-login {
+        margin-left: 5px;
     }
 
 }
@@ -1944,11 +1958,6 @@ accordion-button::after {
         padding-left: 15px;
     }
 
-    .highest-paying .img-set {
-        width: 50%;
-        margin-top: 25px;
-    }
-
     .career-advice-section .job-post-g-img {
         margin-bottom: 10px;
     }
@@ -2052,6 +2061,38 @@ accordion-button::after {
 
 
 @media screen and (max-width: 550px) {
+    h1 {
+        font-size: 22px;
+    }
+
+    body,
+    .g-font-xxs,
+    p {
+        font-size: 13px;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    h2,
+    .g-font-m,
+    .g-font-xl {
+        font-size: 16px;
+    }
+
+    h3,
+    .g-font-xs {
+        font-size: 14px;
+    }
+
+    .g-font-l {
+        font-size: 16px;
+    }
+
+    .job-post-section h2 {
+        margin-bottom: 10px !important;
+    }
 
     .inner-page .career-advice-topic {
         margin-top: 10px;
@@ -2069,7 +2110,6 @@ accordion-button::after {
         width: 125px;
     }
 
-
     .header-nav a {
         padding: 4px 8px;
     }
@@ -2081,6 +2121,11 @@ accordion-button::after {
 
     .hero-section {
         width: 90%;
+        padding: 20px 0;
+    }
+
+    .hero-section .g-font-l {
+        font-size: 16px;
     }
 
     .footer-info>div {
@@ -2097,13 +2142,13 @@ accordion-button::after {
     .footer,
     .blogs-for-surat-section,
     .innrt-page-content {
-        padding: 0 10px;
+        padding: 0 15px;
     }
 
     .job-post-section,
     .job-featured-section,
     .upcoming-events-section {
-        padding: 20px 10px;
+        padding: 15px;
     }
 
     .job-featured-section-wrap {
@@ -2119,9 +2164,6 @@ accordion-button::after {
         margin-bottom: 0;
     }
 
-    .professional-journey .img-set {
-        width: 50%;
-    }
 
     .job-post-inner-resent-wrap-img {
         width: 35%;
@@ -2147,8 +2189,13 @@ accordion-button::after {
         height: 31px;
     }
 
+    .blogs-for-surat-section-wrap .job-post-g-img img {
+        border-radius: 12px 12px 0 0;
+    }
+
     .blogs-for-surat-section-wrap .g-content {
         min-height: 55px;
+        border-radius: 0 0 12px 12px;
     }
 
     .job-filter {
@@ -2164,14 +2211,16 @@ accordion-button::after {
     }
 
     .job-post-section {
-        margin: 0 10px;
+        margin: 0 15px;
     }
 
     .cta-btn .g-btn {
         padding: 8px 16px;
     }
 
-    .footer-copyright p, .job-info-testimonials p, .content-represent-des-wrap-des p {
+    .footer-copyright p,
+    .job-info-testimonials p,
+    .content-represent-des-wrap-des p {
         margin-bottom: 0;
     }
 
@@ -2187,6 +2236,91 @@ accordion-button::after {
         width: 60px;
         max-height: 60px;
     }
+
+    .job-post-trending {
+        margin-bottom: 0;
+    }
+
+    .suggestor-input {
+        font-size: 14px;
+    }
+
+    .job-popular-section .row,
+    .job-featured-section .row,
+    .blogs-for-surat-section .row,
+    .upcoming-events-section .row {
+        margin: 0 -7px;
+    }
+
+    .job-popular-section .col-6,
+    .job-featured-section .col-6,
+    .blogs-for-surat-section .col-4, 
+    .upcoming-events-section .col-6 {
+        padding: 0 7px;
+    }
+
+    .header-login .g-btn {
+        padding: 5px 10px;
+    }
+
+    .content-represent-des-wrap-img,
+    .content-represent-des-wrap-des {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .content-represent-des-wrap {
+        display: inline-block !important;
+    }
+
+    .content-represent-des-wrap-img {
+        margin-bottom: 10px;
+    }
+
+    .content-represent-des-wrap-des h2 {
+        margin-bottom: 10px;
+    }
+
+    .professional-journey .content-represent-des,
+    .highest-paying .content-represent-des,
+    .paying-sectors-wrap,
+    .food-surat .content-represent-des,
+    .surat-weather .content-represent-des, 
+    .smc .content-represent-des
+    {
+        margin-bottom: 30px;
+    }
+    
+    .surat-place .content-represent-des-wrap-des, .smc .content-represent-des-wrap-des{
+        margin-bottom: 20px;
+    }
+
+
+    .inner-page h2 {
+        margin-bottom: 10px;
+    }
+
+    .content-represent-des-tag {
+        margin: 0;
+    }
+
+    .job-popular-section, .job-featured-section .row{
+        margin-bottom: 10px !important;
+    }
+
+    .hero-section {
+        margin-bottom: 20px !important;
+    }
+
+    .footer-totop .text {
+        font-size: 12px;
+    }
+
+    .blogs-for-surat-section-wrap .g-content {
+        box-shadow: inherit;   
+    }
+
 }
 
 @media screen and (max-width: 350px) {
@@ -2200,7 +2334,7 @@ accordion-button::after {
         font-size: 13px;
     }
 
-    .mobile-menu {
-        margin-right: 5px;
+    .blogs-for-surat-section-wrap .g-content h3 {
+        font-size: 12px;
     }
 }
