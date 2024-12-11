@@ -12,10 +12,13 @@ const cloudinary = require('cloudinary').v2;
 dotenv.config();
 const app = express();
 
-app.use(cors({
-    origin: 'https://jobsinsurat.in',
-    credentials: true,
-}));
+const corsOptions = {
+    origin: ['https://jobsinsurat.in', 'https://www.jobsinsurat.in'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 app.use(fileUpload({
     useTempFiles: true
