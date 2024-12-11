@@ -5,15 +5,12 @@ const jobRoutes = require('./routes/jobRoutes');
 const companyInfoRoutes = require('./routes/companyInfoRoutes');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const cloudinary = require('cloudinary').v2;
 
 
 dotenv.config();
 const app = express();
-
-app.use(cookieParser());
 
 app.use(cors({
     origin: 'https://jobsinsurat.in',

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,15 @@ export class ClientService {
   constructor(private httpClient: HttpClient) { }
 
   createJob(createJob, fileUpload) {
-    return this.httpClient.post(`${this.url}/api/jobs/create-job`, createJob, { responseType: 'text' });
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+    return this.httpClient.post(`${this.url}/api/jobs/create-job`, createJob,  { headers, responseType: 'text' });
   }
 
 
   createCompany(createJob, fileUpload) {
+
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+
     const formData = new FormData();
 
     for (const key in createJob) {
@@ -30,13 +35,14 @@ export class ClientService {
     }
 
     return this.httpClient.post(`${this.url}/api/company/create-company`, formData, {
+      headers,
       responseType: 'text',
     });
   }
 
 
   loginPortal(userPass) {
-    return this.httpClient.post(`${this.url}/api/auth/login`, userPass, { responseType: 'text' });
+    return this.httpClient.post(`${this.url}/api/auth/login`, userPass, { responseType: 'json' });
   }
 
   ragistarPortal(userPass) {
@@ -48,7 +54,8 @@ export class ClientService {
   }
 
   getCompanyInfoPortal() {
-    return this.httpClient.get(`${this.url}/api/company/company-info`);
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('accessToken'));
+    return this.httpClient.get(`${this.url}/api/company/company-info`, { headers });
   }
 
   getJobListPortal() {
@@ -73,6 +80,32 @@ export class ClientService {
 
   sendJobInfoPortal(payload) {
     return this.httpClient.post(`${this.url}/api/company/apply-for-job`, payload, { responseType: 'json' });
+  }
+
+
+  isLoggedIn() {
+    const token = this.getToken();
+    return !!token;
+  }
+
+
+  saveToken(token) {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('accessToken', token);
+    }
+  }
+
+  getToken() {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('accessToken');
+    }
+    return null;
+  }
+
+  logout() {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('accessToken');
+    }
   }
 
 }
