@@ -20,13 +20,35 @@ exports.register = async (req, res) => {
     // res.status(201).json({ message: 'User registered' });
 
 
+    // try {
+    //     const { username, password } = req.body;
+    //     const hashedPassword = await bcrypt.hash(password, 10);
+    //     const user = new User({ username, password: hashedPassword });
+    //     await user.save();
+    //     return res.status(201).json(new ApiResponse(201, { user }, "User registered successfully"));
+    // } catch (error) {
+    //     return res.status(500).json(new ApiResponse(500, null, "Server error"));
+    // }
+
+
+    const { username, password } = req.body;
+
     try {
-        const { username, password } = req.body;
+        // Check if the user already exists
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
+
+        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ username, password: hashedPassword });
-        await user.save();
-        return res.status(201).json(new ApiResponse(201, { user }, "User registered successfully"));
-    } catch (error) {
+
+        // Save the new user to the database
+        const newUser = new User({ username, password: hashedPassword });
+        await newUser.save();
+
+        return res.status(201).json(new ApiResponse(201, { newUser }, "User registered successfully"));
+    } catch (err) {
         return res.status(500).json(new ApiResponse(500, null, "Server error"));
     }
 
@@ -34,39 +56,33 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
+
         const { username, password } = req.body;
+
         const user = await User.findOne({ username });
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json(new ApiResponse(401, null, "Invalid credentials"));
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const accessToken = createAccessToken(user);
-        const refreshToken = createRefreshToken(user);
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
 
-        res.cookie('accessToken', accessToken, { httpOnly: false, secure: true });
-        res.cookie('refreshToken', refreshToken, { httpOnly: false, secure: true });
+        const accessToken = jwt.sign(
+            { userId: user._id, username: user.username },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '1h' }
+        );
 
-        return res.status(200).json(new ApiResponse(200, { user }, "User logged in successfully"));
+
+        return res.status(200).json(new ApiResponse(200, { accessToken }, "User logged in successfully"));
     } catch (error) {
         return res.status(500).json(new ApiResponse(500, null, "Server error"));
     }
 };
 
 exports.logout = (req, res) => {
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
     return res.status(200).json(new ApiResponse(200, null, "Logged out successfully"));
 };
 
-exports.refreshToken = (req, res) => {
-    const { refreshToken } = req.cookies;
-    if (!refreshToken) return res.sendStatus(401);
-    
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-        
-        const accessToken = createAccessToken(user);
-        res.cookie('accessToken', accessToken, { httpOnly: false, secure: true });
-        res.json({ accessToken });
-    });
-};

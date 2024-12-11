@@ -26,6 +26,7 @@ export class LoginComponent {
     if (form.valid) {
       this.clientService.loginPortal(this.user).subscribe({
         next: (res: any) => {
+          this.clientService.saveToken(res['data']['accessToken']); 
           this.router.navigate(['/create-job']);
         },
         error: (error) => {
