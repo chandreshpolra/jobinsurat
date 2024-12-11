@@ -43,8 +43,8 @@ exports.login = async (req, res) => {
         const accessToken = createAccessToken(user);
         const refreshToken = createRefreshToken(user);
 
-        res.cookie('accessToken', accessToken, { httpOnly: false, secure: process.env.NODE_ENV === 'production' });
-        res.cookie('refreshToken', refreshToken, { httpOnly: false, secure: process.env.NODE_ENV === 'production' });
+        res.cookie('accessToken', accessToken, { httpOnly: false, secure: true });
+        res.cookie('refreshToken', refreshToken, { httpOnly: false, secure: true });
 
         return res.status(200).json(new ApiResponse(200, { user }, "User logged in successfully"));
     } catch (error) {
@@ -66,7 +66,7 @@ exports.refreshToken = (req, res) => {
         if (err) return res.sendStatus(403);
         
         const accessToken = createAccessToken(user);
-        res.cookie('accessToken', accessToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+        res.cookie('accessToken', accessToken, { httpOnly: false, secure: true });
         res.json({ accessToken });
     });
 };

@@ -16,7 +16,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(cors({
-    origin: '*',
+    origin: 'https://jobsinsurat.in',
     credentials: true,
 }));
 
