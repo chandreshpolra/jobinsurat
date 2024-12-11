@@ -36,7 +36,7 @@ export class ClientService {
 
 
   loginPortal(userPass) {
-    return this.httpClient.post(`${this.url}/api/auth/login`, userPass, { responseType: 'text', withCredentials: true });
+    return this.httpClient.post(`${this.url}/api/auth/login`, userPass, { responseType: 'text' });
   }
 
   ragistarPortal(userPass) {

@@ -1822,6 +1822,7 @@ accordion-button::after {
         padding-right: 15px;
         background-color: #f5f5f5;
         padding: 10px;
+        padding-bottom: 70px;
     }
 
     .surat-blog-inner .job-post-inner-resent-wrap {
@@ -2321,6 +2322,21 @@ accordion-button::after {
         box-shadow: inherit;   
     }
 
+    .job-tags .job-openings {
+        margin-right: 5px;
+    }
+    .job-openings {
+        padding: 2px 5px;
+    }
+
+    .job-post-inner-wrap {
+        padding: 10px;
+    }
+
+    app-job-search .job-post-inner-wrap {
+        padding-right: 32px;
+    }
+
 }
 
 @media screen and (max-width: 350px) {
@@ -2335,6 +2351,10 @@ accordion-button::after {
     }
 
     .blogs-for-surat-section-wrap .g-content h3 {
+        font-size: 12px;
+    }
+
+    .job-tags .job-openings {
         font-size: 12px;
     }
 }
