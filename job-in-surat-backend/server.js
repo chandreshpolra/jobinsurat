@@ -12,7 +12,6 @@ const cloudinary = require('cloudinary').v2;
 dotenv.config();
 const app = express();
 
-// Allow specific origins
 const corsOptions = {
     origin: ['https://jobsinsurat.in', 'https://www.jobsinsurat.in'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
